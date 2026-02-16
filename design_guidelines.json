@@ -1,0 +1,119 @@
+{
+  "identity": {
+    "name": "Maizul",
+    "tone": "Friendly, Familiar, Fresh, Beach Vibes",
+    "theme_mode": "light",
+    "persona": "The Anti-AI Designer (E1)",
+    "design_principles": [
+      "Fusion: Traditional Mexican warmth + Modern Coastal Minimalism",
+      "Emotion: Sunny, appetizing, relaxed",
+      "Content: Storytelling through food and ocean imagery",
+      "Spacing: Generous, breathable layouts (2x standard)",
+      "Contrast: Deep Blue vs. Sunny Yellow vs. White Sand"
+    ]
+  },
+  "colors": {
+    "primary": "#3B56B0",
+    "secondary": "#FFEC76",
+    "background": "#FDFCF8",
+    "surface": "#FFFFFF",
+    "surface_alt": "#F4F6FA",
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#334155",
+      "brand": "#3B56B0"
+    },
+    "border": "#E2E8F0",
+    "accents": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
+    }
+  },
+  "typography": {
+    "font_family_heading": "Fraunces, serif",
+    "font_family_body": "Inter, sans-serif",
+    "instructions": "Use 'Fraunces' for all Headings (H1-H4). Use 'Inter' for body text, UI elements, and navigation. Ensure 'Fraunces' is used with 'font-variation-settings' for weight/optical sizing if available, or standard weights 600-900.",
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-5xl font-semibold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-medium",
+      "body": "text-base md:text-lg leading-relaxed text-slate-600",
+      "caption": "text-sm text-slate-500 uppercase tracking-widest"
+    }
+  },
+  "visual_enhancers": {
+    "border_radius": "rounded-2xl",
+    "shadows": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+    "glassmorphism": "bg-white/80 backdrop-blur-md border border-white/20",
+    "gradients": "None. Use solid blocks or subtle noise textures.",
+    "textures": "Add a subtle noise texture overlay to the background if possible to mimic sand/paper."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#FFEC76] text-[#3B56B0] hover:bg-[#FDE047] rounded-full px-8 py-4 font-semibold shadow-sm transition-transform active:scale-95",
+      "secondary": "bg-transparent border-2 border-[#3B56B0] text-[#3B56B0] hover:bg-[#3B56B0] hover:text-white rounded-full px-8 py-4 font-medium transition-colors"
+    },
+    "cards": "bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow duration-300 p-6",
+    "inputs": "rounded-xl border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#3B56B0] focus:border-transparent",
+    "navigation": "fixed top-0 w-full z-50 glassmorphism transition-all duration-300"
+  },
+  "layout_strategies": {
+    "general": "Mobile-first. Stacking columns on mobile, 12-col grid on desktop.",
+    "hero": "Full-height (min-h-[80vh]) with video background or high-impact image. Centered text or asymmetric split.",
+    "bento_grid": "Use for the 'Popular Dishes' or 'Instagram Feed' section. Mix 1x1, 2x1, and 2x2 items.",
+    "spacing": "Use 'py-20' or 'py-24' for section vertical padding. 'gap-8' or 'gap-12' for grids."
+  },
+  "motion": {
+    "default_transition": "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    "fade_in": "opacity-0 translate-y-4 -> opacity-100 translate-y-0",
+    "hover_effects": "Scale up slightly (1.02) or shift up (-4px) on cards.",
+    "stagger": "Stagger list items by 0.1s."
+  },
+  "images": {
+    "hero_bg": {
+      "url": "https://images.unsplash.com/photo-1760726254306-9d7d755ba60a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzOTB8MHwxfHNlYXJjaHw0fHxibHVlJTIwb2NlYW4lMjBzdW5ueSUyMGJlYWNoJTIwbWV4aWNvJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc3MTI1ODQ5Mnww&ixlib=rb-4.1.0&q=85",
+      "alt": "Ocean waves at Nuevo Vallarta",
+      "category": "Hero"
+    },
+    "food_tacos": {
+      "url": "https://images.unsplash.com/photo-1768716697811-75b2ce9c5b54?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwxfHxnb3VybWV0JTIwbWV4aWNhbiUyMHRhY29zJTIwZnJlc2glMjBjaWxhbnRyb3xlbnwwfHx8fDE3NzEyNTg0Nzd8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Fresh gourmet tacos",
+      "category": "Menu"
+    },
+    "food_seafood": {
+      "url": "https://images.unsplash.com/photo-1681394421550-83cc9341b9f8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHw0fHxmcmVzaCUyMGFndWFjaGlsZSUyMHNlYWZvb2QlMjBwbGF0ZSUyMG1leGljYW4lMjBnb3VybWV0fGVufDB8fHx8MTc3MTI1ODQ5MHww&ixlib=rb-4.1.0&q=85",
+      "alt": "Aguachile and seafood spread",
+      "category": "Menu"
+    },
+    "drink_cocktail": {
+      "url": "https://images.unsplash.com/photo-1576271758678-8ed32baa7d10?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHw0fHx5ZWxsb3clMjB0cm9waWNhbCUyMGNvY2t0YWlsJTIwc3VubnklMjBiZWFjaHxlbnwwfHx8fDE3NzEyNTg0OTF8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Yellow tropical cocktail on beach",
+      "category": "Menu"
+    },
+    "atmosphere_family": {
+      "url": "https://images.unsplash.com/photo-1713965591727-8bde8b3da24a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHw0fHxiZWFjaCUyMHJlc3RhdXJhbnQlMjBpbnRlcmlvciUyMHN1bm55JTIwbWV4aWNvJTIwZmFtaWx5fGVufDB8fHx8MTc3MTI1ODQ3OXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Family dining by the ocean",
+      "category": "About"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install 'lucide-react' for icons.",
+    "Install 'framer-motion' for animations.",
+    "Install 'clsx' and 'tailwind-merge' for class handling.",
+    "Use 'Fraunces' via Google Fonts (import in index.css).",
+    "Implement the 'Glassmorphism' header with a blur effect.",
+    "Use the 'Bento' grid layout for the 'Why Maizul' or 'Gallery' section.",
+    "Ensure the 'WhatsApp' CTA is sticky on mobile bottom-right.",
+    "For the Admin Dashboard, use a clean, dense layout (Mode B) with the Maizul Blue branding.",
+    "Implement language toggler (ES/EN) in the navbar.",
+    "Use the specific images provided in the 'images' object for their respective sections."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for backgrounds, use solid colors or subtle patterns.",
+    "Ensure text contrast meets WCAG AA standards.",
+    "Use 'data-testid' on all interactive elements.",
+    "Use 'sonner' for toast notifications.",
+    "Prioritize mobile responsiveness."
+  ]
+}
