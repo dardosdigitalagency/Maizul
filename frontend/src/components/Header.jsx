@@ -108,7 +108,7 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-12" data-testid="desktop-nav">
+          <nav className="hidden md:flex items-center gap-10" data-testid="desktop-nav">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
