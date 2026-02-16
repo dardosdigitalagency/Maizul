@@ -1,53 +1,63 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { Toaster } from './components/ui/sonner';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { DEFAULT_LANGUAGE } from './config/constants';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Pages
+import Home from './pages/Home';
+import Menu from './pages/Menu';
+import AdminLogin from './pages/Admin/Login';
+import AdminDashboard from './pages/Admin/Dashboard';
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
+// Language redirect component
+const LanguageRedirect = () => {
+  const navigate = useNavigate();
+  const { language } = useLanguage();
+  
   useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
+    navigate(`/${language}`, { replace: true });
+  }, [language, navigate]);
+  
+  return null;
 };
+
+// App component wrapped with providers
+function AppContent() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Root redirect to default language */}
+        <Route path="/" element={<LanguageRedirect />} />
+        
+        {/* Language-specific routes */}
+        <Route path="/:lang" element={<Home />} />
+        <Route path="/:lang/menu" element={<Menu />} />
+        
+        {/* Admin routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />} />
+      </Routes>
+      
+      <Toaster position="top-right" richColors />
+    </BrowserRouter>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <HelmetProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </LanguageProvider>
+    </HelmetProvider>
   );
 }
 
