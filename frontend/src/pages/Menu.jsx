@@ -118,6 +118,8 @@ const Menu = () => {
         <meta property="og:image" content={IMAGES.tacos} />
         <meta property="og:url" content={`${window.location.origin}/${language}/menu`} />
         <link rel="canonical" href={`${window.location.origin}/${language}/menu`} />
+        <link rel="alternate" hrefLang="es" href={`${window.location.origin}/es/menu`} />
+        <link rel="alternate" hrefLang="en" href={`${window.location.origin}/en/menu`} />
       </Helmet>
 
       <div className="min-h-screen bg-[#FDFCF8]" data-testid="menu-page">

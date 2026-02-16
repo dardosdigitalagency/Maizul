@@ -86,8 +86,6 @@ const Home = () => {
         <title>{seoTitle}</title>
         <meta name="description" content={seoDescription} />
         <meta name="keywords" content="restaurante Nuevo Vallarta, desayunos Nuevo Vallarta, comida Nuevo Vallarta, cena Nuevo Vallarta, restaurant Nuevo Vallarta, breakfast Nuevo Vallarta, lunch Nuevo Vallarta, dinner Nuevo Vallarta, family restaurant Nuevo Vallarta, Maizul" />
-        
-        {/* Open Graph */}
         <meta property="og:type" content="restaurant" />
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
@@ -95,22 +93,13 @@ const Home = () => {
         <meta property="og:url" content={`${window.location.origin}/${language}`} />
         <meta property="og:locale" content={language === 'es' ? 'es_MX' : 'en_US'} />
         <meta property="og:site_name" content={RESTAURANT_NAME} />
-        
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seoTitle} />
         <meta name="twitter:description" content={seoDescription} />
         <meta name="twitter:image" content={IMAGES.hero} />
-        
-        {/* Canonical */}
         <link rel="canonical" href={`${window.location.origin}/${language}`} />
         <link rel="alternate" hrefLang="es" href={`${window.location.origin}/es`} />
         <link rel="alternate" hrefLang="en" href={`${window.location.origin}/en`} />
-        
-        {/* Schema.org */}
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
       </Helmet>
 
       <div className="min-h-screen bg-[#FDFCF8]" data-testid="home-page">
