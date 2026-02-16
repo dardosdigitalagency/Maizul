@@ -6,11 +6,11 @@ import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { HeroSection } from '../components/sections/HeroSection';
 import { WhyMaizulSection } from '../components/sections/WhyMaizulSection';
+import { StorySection } from '../components/sections/StorySection';
 import { SmartHoursSection } from '../components/sections/SmartHoursSection';
 import { InstagramSection } from '../components/sections/InstagramSection';
 import { LocationSection } from '../components/sections/LocationSection';
 import { FAQSection } from '../components/sections/FAQSection';
-import { RESTAURANT_NAME, IMAGES } from '../config/constants';
 
 const Home = () => {
   const { lang } = useParams();
@@ -68,6 +68,7 @@ const Home = () => {
       <main>
         <HeroSection />
         <WhyMaizulSection />
+        <StorySection />
         <SmartHoursSection />
         <InstagramSection />
         <LocationSection />
