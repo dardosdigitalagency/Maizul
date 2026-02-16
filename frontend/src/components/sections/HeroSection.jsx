@@ -161,12 +161,7 @@ export const HeroSection = () => {
             y: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
           }}
         >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-white/60 text-xs uppercase tracking-widest">
-              {language === 'es' ? 'Descubre más' : 'Discover more'}
-            </span>
-            <ChevronDown className="h-6 w-6 text-white/60" />
-          </div>
+          <ChevronDown className="h-6 w-6 text-white/60" />
         </motion.div>
       </div>
     </section>
