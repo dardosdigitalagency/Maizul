@@ -72,7 +72,11 @@ export const Header = () => {
   };
 
   // Determine if we're on a page with hero (transparent header needed)
-  const isHeroPage = location.pathname === `/${language}` || location.pathname === '/es' || location.pathname === '/en' || location.pathname === '/';
+  const isHeroPage = location.pathname === `/${language}` || 
+                     location.pathname === '/es' || 
+                     location.pathname === '/en' || 
+                     location.pathname === '/' ||
+                     location.pathname === `/${language}/`;
   const showTransparent = isHeroPage && !isScrolled;
 
   return (
