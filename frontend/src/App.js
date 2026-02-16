@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { Toaster } from './components/ui/sonner';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { DEFAULT_LANGUAGE } from './config/constants';
+import { useEffect } from 'react';
 
 // Pages
 import Home from './pages/Home';
@@ -51,13 +51,11 @@ function AppContent() {
 
 function App() {
   return (
-    <HelmetProvider>
-      <LanguageProvider>
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
-      </LanguageProvider>
-    </HelmetProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
