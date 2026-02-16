@@ -358,7 +358,8 @@ class MaizulAPITester:
         if self.failed_tests:
             print(f"\n❌ Failed tests ({len(self.failed_tests)}):")
             for failed in self.failed_tests:
-                print(f"  - {failed['test']}: {failed.get('error', f\"Expected {failed.get('expected')}, got {failed.get('actual')}\")}")
+                error_msg = failed.get('error', f"Expected {failed.get('expected')}, got {failed.get('actual')}")
+                print(f"  - {failed['test']}: {error_msg}")
         
         print("\n🎯 Menu Items Summary:")
         if self.menu_items:
