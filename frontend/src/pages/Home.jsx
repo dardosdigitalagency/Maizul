@@ -5,9 +5,10 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { HeroSection } from '../components/sections/HeroSection';
+import { FeaturedDishesSection } from '../components/sections/FeaturedDishesSection';
 import { WhyMaizulSection } from '../components/sections/WhyMaizulSection';
-import { StorySection } from '../components/sections/StorySection';
 import { SmartHoursSection } from '../components/sections/SmartHoursSection';
+import { StorySection } from '../components/sections/StorySection';
 import { InstagramSection } from '../components/sections/InstagramSection';
 import { LocationSection } from '../components/sections/LocationSection';
 import { FAQSection } from '../components/sections/FAQSection';
@@ -40,13 +41,11 @@ const Home = () => {
     document.title = seoTitle;
     document.documentElement.lang = language;
     
-    // Update meta description
     let metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute('content', seoDescription);
     }
     
-    // Update OG tags
     const updateMeta = (property, content) => {
       let meta = document.querySelector(`meta[property="${property}"]`);
       if (meta) {
@@ -67,9 +66,10 @@ const Home = () => {
       
       <main>
         <HeroSection />
+        <FeaturedDishesSection />
+        <SmartHoursSection />
         <WhyMaizulSection />
         <StorySection />
-        <SmartHoursSection />
         <InstagramSection />
         <LocationSection />
         <FAQSection />
