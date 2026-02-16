@@ -10,6 +10,13 @@ const iconMap = {
   globe: Globe,
 };
 
+const cardColors = [
+  'from-amber-400 to-orange-500',
+  'from-blue-400 to-indigo-500',
+  'from-emerald-400 to-teal-500',
+  'from-purple-400 to-pink-500',
+];
+
 export const WhyMaizulSection = () => {
   const { tObj } = useLanguage();
   const why = tObj('why') || {};
@@ -21,34 +28,49 @@ export const WhyMaizulSection = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
+        delayChildren: 0.2,
       },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      scale: 1,
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
   return (
-    <section className="section-padding bg-[#FDFCF8]" data-testid="why-maizul-section">
+    <section className="section-padding bg-[#FDFCF8] overflow-hidden" data-testid="why-maizul-section">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <motion.h2
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#3B56B0] mb-12 md:mb-16"
-          style={{ fontFamily: 'Fraunces, serif' }}
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          data-testid="why-maizul-title"
         >
-          {why.title}
-        </motion.h2>
+          <motion.div
+            className="inline-block mb-4"
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', delay: 0.2 }}
+          >
+            <span className="text-6xl">✨</span>
+          </motion.div>
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3B56B0]"
+            style={{ fontFamily: 'Fraunces, serif' }}
+            data-testid="why-maizul-title"
+          >
+            {why.title}
+          </h2>
+        </motion.div>
 
         {/* Cards Grid - Bento style */}
         <motion.div
@@ -63,24 +85,39 @@ export const WhyMaizulSection = () => {
             return (
               <motion.div
                 key={index}
-                className="card-maizul group cursor-default"
+                className="group cursor-default"
                 variants={cardVariants}
-                whileHover={{ y: -4, boxShadow: '0 12px 40px rgba(0,0,0,0.08)' }}
+                whileHover={{ y: -12, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 300 }}
                 data-testid={`why-card-${index}`}
               >
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-14 h-14 rounded-full bg-[#FFEC76]/30 flex items-center justify-center mb-4 group-hover:bg-[#FFEC76]/50 transition-colors">
-                    <IconComponent className="h-7 w-7 text-[#3B56B0]" />
+                <div className="card-maizul h-full relative overflow-hidden">
+                  {/* Gradient Background on Hover */}
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-br ${cardColors[index]} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                  />
+                  
+                  <div className="relative flex flex-col items-center text-center">
+                    {/* Icon Container with Animation */}
+                    <motion.div 
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${cardColors[index]} flex items-center justify-center mb-5 shadow-lg`}
+                      whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <IconComponent className="h-8 w-8 text-white" />
+                    </motion.div>
+                    
+                    <h3
+                      className="text-lg font-semibold text-slate-800 mb-3"
+                      style={{ fontFamily: 'Fraunces, serif' }}
+                    >
+                      {card.title}
+                    </h3>
+                    
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      {card.description}
+                    </p>
                   </div>
-                  <h3
-                    className="text-lg font-semibold text-slate-800 mb-2"
-                    style={{ fontFamily: 'Fraunces, serif' }}
-                  >
-                    {card.title}
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    {card.description}
-                  </p>
                 </div>
               </motion.div>
             );

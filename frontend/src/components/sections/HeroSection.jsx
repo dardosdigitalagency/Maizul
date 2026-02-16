@@ -24,64 +24,113 @@ export const HeroSection = () => {
 
   return (
     <section
-      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100vh] flex items-center justify-center overflow-hidden"
       data-testid="hero-section"
     >
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Image with Parallax Effect */}
+      <motion.div 
+        className="absolute inset-0 z-0"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.5, ease: 'easeOut' }}
+      >
         <img
           src={IMAGES.hero}
           alt="Ocean view at Nuevo Vallarta"
           className="w-full h-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+      </motion.div>
+
+      {/* Animated Decorative Elements */}
+      <motion.div
+        className="absolute top-20 left-10 w-32 h-32 bg-[#FFEC76]/20 rounded-full blur-3xl"
+        animate={{ 
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.5, 0.3],
+          x: [0, 20, 0],
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-40 right-20 w-48 h-48 bg-[#3B56B0]/20 rounded-full blur-3xl"
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.4, 0.2],
+          y: [0, -30, 0],
+        }}
+        transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+      />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-8 text-center text-white">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 md:px-8 text-center text-white pt-20">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 1, ease: 'easeOut' }}
         >
-          {/* Main Headline */}
-          <h1
+          {/* Animated Badge */}
+          <motion.div
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 px-5 py-2 rounded-full mb-8 border border-white/20"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, type: 'spring' }}
+          >
+            <span className="w-2 h-2 bg-[#FFEC76] rounded-full animate-pulse" />
+            <span className="text-sm font-medium">Nuevo Vallarta, México</span>
+          </motion.div>
+
+          {/* Main Headline with Animation */}
+          <motion.h1
+            key={headlineIndex}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             style={{ fontFamily: 'Fraunces, serif' }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.8 }}
             data-testid="hero-headline"
           >
             {headlines[headlineIndex]}
-          </h1>
+          </motion.h1>
 
           {/* Subtitle with hours */}
-          <p
-            className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+          <motion.p
+            className="text-base sm:text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
             data-testid="hero-subtitle"
           >
             {t('hero.subtitle')}
-          </p>
+          </motion.p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <motion.div 
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+          >
             {/* Primary: WhatsApp */}
             <motion.a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary text-base md:text-lg w-full sm:w-auto"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-primary text-base md:text-lg w-full sm:w-auto shadow-lg shadow-[#FFEC76]/30"
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,236,118,0.4)' }}
+              whileTap={{ scale: 0.95 }}
               data-testid="hero-whatsapp-cta"
             >
               {t('hero.cta_whatsapp')}
             </motion.a>
 
             {/* Secondary: View Menu */}
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 to={`/${language}/menu`}
-                className="btn-secondary bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-[#3B56B0] text-base md:text-lg w-full sm:w-auto inline-block text-center"
+                className="btn-secondary bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-[#3B56B0] text-base md:text-lg w-full sm:w-auto inline-block text-center shadow-lg"
                 data-testid="hero-menu-cta"
               >
                 {t('hero.cta_menu')}
@@ -94,21 +143,30 @@ export const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/90 hover:text-white underline underline-offset-4 font-medium transition-colors"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               data-testid="hero-directions-cta"
             >
               {t('hero.cta_directions')}
             </motion.a>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 10, 0] }}
+          transition={{ 
+            opacity: { delay: 1.5 },
+            y: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+          }}
         >
-          <ChevronDown className="h-8 w-8 text-white/60" />
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-white/60 text-xs uppercase tracking-widest">
+              {language === 'es' ? 'Descubre más' : 'Discover more'}
+            </span>
+            <ChevronDown className="h-6 w-6 text-white/60" />
+          </div>
         </motion.div>
       </div>
     </section>
