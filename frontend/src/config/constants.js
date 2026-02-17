@@ -28,8 +28,9 @@ export const GOOGLE_MAPS_LINK = "https://maps.google.com/?q=C.+16+de+Septiembre+
 // Default language
 export const DEFAULT_LANGUAGE = "es";
 
-// API
-export const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
+// API - Use environment variable or fallback to production URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://maizul-production.up.railway.app';
+export const API_URL = `${BACKEND_URL}/api`;
 
 // Images from design guidelines
 export const IMAGES = {
