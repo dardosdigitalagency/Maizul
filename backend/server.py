@@ -16,10 +16,27 @@ import bcrypt
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MongoDB connection - lazy initialization
+mongo_url = os.environ.get('MONGO_URL')
+db_name = os.environ.get('DB_NAME', 'maizul')
+
+# Initialize client with connection timeout settings for better reliability
+client = None
+db = None
+
+def get_db():
+    global client, db
+    if client is None:
+        if not mongo_url:
+            raise HTTPException(status_code=500, detail="MONGO_URL not configured")
+        client = AsyncIOMotorClient(
+            mongo_url,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=10000
+        )
+        db = client[db_name]
+    return db
 
 # JWT Config
 JWT_SECRET = os.environ.get('JWT_SECRET', 'maizul-secret-key-change-in-production')
