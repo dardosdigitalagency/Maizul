@@ -1,0 +1,2 @@
+# Este archivo le dice a Railway que instale las dependencias del backend
+-r backend/requirements.txt
