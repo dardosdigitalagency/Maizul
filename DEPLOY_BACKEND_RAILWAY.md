@@ -1,5 +1,19 @@
 # Maizul Backend - Railway Deployment
 
+## ⚠️ IMPORTANTE: Crear usuario admin
+
+Después de desplegar el backend, DEBES ejecutar este comando UNA VEZ para crear el usuario admin:
+
+```bash
+curl -X POST https://TU-BACKEND-URL.up.railway.app/api/seed
+```
+
+Esto creará:
+- **Usuario**: admin
+- **Contraseña**: Damian.01
+
+---
+
 ## Pasos para desplegar el backend en Railway (GRATIS)
 
 ### 1. Crear cuenta en Railway
