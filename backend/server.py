@@ -286,67 +286,74 @@ async def reorder_menu_items(items: List[dict], current_user: dict = Depends(get
 
 @api_router.post("/seed", response_model=dict)
 async def seed_database():
-    """Seed initial data - only runs if no admin exists"""
-    existing_admin = await db.users.find_one({"role": "admin"})
-    if existing_admin:
-        return {"message": "Database already seeded"}
+    """Seed initial data - creates admin if not exists"""
+    existing_admin = await db.users.find_one({"username": "admin"})
     
-    # Create admin user
-    admin = User(username="admin", role="admin")
-    admin_doc = admin.model_dump()
-    admin_doc["password_hash"] = hash_password("Damian.01")
+    if existing_admin:
+        return {"message": "Admin user already exists", "admin_username": "admin"}
+    
+    # Create admin user: admin / Damian.01
+    admin_doc = {
+        "id": str(uuid.uuid4()),
+        "username": "admin",
+        "password_hash": hash_password("Damian.01"),
+        "role": "admin",
+        "is_active": True,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
     await db.users.insert_one(admin_doc)
     
-    # Create sample menu items
-    sample_items = [
-        # Breakfast
-        {"category": "breakfast", "name_es": "Chilaquiles Verdes", "name_en": "Green Chilaquiles", 
-         "description_es": "Tortilla frita con salsa verde, crema, queso y huevo", "description_en": "Fried tortilla with green salsa, cream, cheese and egg",
-         "price": 145, "is_featured": True, "sort_order": 1, "tags": ["popular"], "image": "https://images.unsplash.com/photo-1534352956036-cd81e27dd615?w=400"},
-        {"category": "breakfast", "name_es": "Huevos Rancheros", "name_en": "Ranch-Style Eggs",
-         "description_es": "Huevos fritos sobre tortilla con salsa ranchera", "description_en": "Fried eggs on tortilla with ranchera sauce",
-         "price": 125, "sort_order": 2, "tags": [], "image": "https://images.unsplash.com/photo-1528712306091-ed0763094c98?w=400"},
-        {"category": "breakfast", "name_es": "Molletes Maizul", "name_en": "Maizul Molletes",
-         "description_es": "Pan con frijoles, queso gratinado y pico de gallo", "description_en": "Bread with beans, melted cheese and pico de gallo",
-         "price": 115, "sort_order": 3, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400"},
-        {"category": "breakfast", "name_es": "Hot Cakes con Frutas", "name_en": "Pancakes with Fruits",
-         "description_es": "Torre de hot cakes con frutas frescas y miel de maple", "description_en": "Stack of pancakes with fresh fruits and maple syrup",
-         "price": 135, "sort_order": 4, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400"},
+    # Check if menu items exist
+    menu_count = await db.menu_items.count_documents({})
+    if menu_count == 0:
+        # Create sample menu items
+        sample_items = [
+            # Breakfast
+            {"category": "breakfast", "name_es": "Chilaquiles Verdes", "name_en": "Green Chilaquiles", 
+             "description_es": "Tortilla frita con salsa verde, crema, queso y huevo", "description_en": "Fried tortilla with green salsa, cream, cheese and egg",
+             "price": 145, "is_featured": True, "sort_order": 1, "tags": ["popular"], "image": "https://images.unsplash.com/photo-1534352956036-cd81e27dd615?w=400"},
+            {"category": "breakfast", "name_es": "Huevos Rancheros", "name_en": "Ranch-Style Eggs",
+             "description_es": "Huevos fritos sobre tortilla con salsa ranchera", "description_en": "Fried eggs on tortilla with ranchera sauce",
+             "price": 125, "sort_order": 2, "tags": [], "image": "https://images.unsplash.com/photo-1528712306091-ed0763094c98?w=400"},
+            {"category": "breakfast", "name_es": "Molletes Maizul", "name_en": "Maizul Molletes",
+             "description_es": "Pan con frijoles, queso gratinado y pico de gallo", "description_en": "Bread with beans, melted cheese and pico de gallo",
+             "price": 115, "sort_order": 3, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400"},
+            {"category": "breakfast", "name_es": "Hot Cakes con Frutas", "name_en": "Pancakes with Fruits",
+             "description_es": "Torre de hot cakes con frutas frescas y miel de maple", "description_en": "Stack of pancakes with fresh fruits and maple syrup",
+             "price": 135, "sort_order": 4, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400"},
+            # Lunch
+            {"category": "lunch", "name_es": "Tacos de Pescado", "name_en": "Fish Tacos",
+             "description_es": "Tacos de pescado fresco con pico de gallo y chipotle", "description_en": "Fresh fish tacos with pico de gallo and chipotle",
+             "price": 185, "is_featured": True, "sort_order": 1, "tags": ["popular", "specialty"], "image": "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400"},
+            {"category": "lunch", "name_es": "Aguachile Maizul", "name_en": "Maizul Aguachile",
+             "description_es": "Camarón fresco en jugo de limón con pepino y chile serrano", "description_en": "Fresh shrimp in lime juice with cucumber and serrano pepper",
+             "price": 225, "is_featured": True, "sort_order": 2, "tags": ["popular", "specialty"], "image": "https://images.unsplash.com/photo-1681394421550-83cc9341b9f8?w=400"},
+            {"category": "lunch", "name_es": "Bowl de Pollo Mediterráneo", "name_en": "Mediterranean Chicken Bowl",
+             "description_es": "Pollo a las hierbas con quinoa, verduras y hummus", "description_en": "Herb chicken with quinoa, vegetables and hummus",
+             "price": 195, "sort_order": 3, "tags": [], "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400"},
+            {"category": "lunch", "name_es": "Ensalada Tropical", "name_en": "Tropical Salad",
+             "description_es": "Mix de lechugas, mango, aguacate y vinagreta de limón", "description_en": "Mixed greens, mango, avocado and lime vinaigrette",
+             "price": 155, "sort_order": 4, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400"},
+            # Dinner
+            {"category": "dinner", "name_es": "Rib Eye al Carbón", "name_en": "Charcoal Rib Eye",
+             "description_es": "Corte premium de 400g con guarnición", "description_en": "Premium 400g cut with sides",
+             "price": 485, "is_featured": True, "sort_order": 1, "tags": ["specialty"], "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400"},
+            {"category": "dinner", "name_es": "Pulpo a las Brasas", "name_en": "Grilled Octopus",
+             "description_es": "Pulpo perfectamente asado con papas y chimichurri", "description_en": "Perfectly grilled octopus with potatoes and chimichurri",
+             "price": 395, "is_featured": True, "sort_order": 2, "tags": ["specialty"], "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400"},
+            {"category": "dinner", "name_es": "Salmón Glaseado", "name_en": "Glazed Salmon",
+             "description_es": "Salmón con glaseado de miel y soya, vegetales al vapor", "description_en": "Salmon with honey soy glaze, steamed vegetables",
+             "price": 345, "sort_order": 3, "tags": [], "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400"},
+            {"category": "dinner", "name_es": "Pasta Mariscos", "name_en": "Seafood Pasta",
+             "description_es": "Linguini con camarones, pulpo y mejillones en salsa blanca", "description_en": "Linguini with shrimp, octopus and mussels in white sauce",
+             "price": 295, "sort_order": 4, "tags": ["popular"], "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400"},
+        ]
         
-        # Lunch
-        {"category": "lunch", "name_es": "Tacos de Pescado", "name_en": "Fish Tacos",
-         "description_es": "Tacos de pescado fresco con pico de gallo y chipotle", "description_en": "Fresh fish tacos with pico de gallo and chipotle",
-         "price": 185, "is_featured": True, "sort_order": 1, "tags": ["popular", "specialty"], "image": "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400"},
-        {"category": "lunch", "name_es": "Aguachile Maizul", "name_en": "Maizul Aguachile",
-         "description_es": "Camarón fresco en jugo de limón con pepino y chile serrano", "description_en": "Fresh shrimp in lime juice with cucumber and serrano pepper",
-         "price": 225, "is_featured": True, "sort_order": 2, "tags": ["popular", "specialty"], "image": "https://images.unsplash.com/photo-1681394421550-83cc9341b9f8?w=400"},
-        {"category": "lunch", "name_es": "Bowl de Pollo Mediterráneo", "name_en": "Mediterranean Chicken Bowl",
-         "description_es": "Pollo a las hierbas con quinoa, verduras y hummus", "description_en": "Herb chicken with quinoa, vegetables and hummus",
-         "price": 195, "sort_order": 3, "tags": [], "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400"},
-        {"category": "lunch", "name_es": "Ensalada Tropical", "name_en": "Tropical Salad",
-         "description_es": "Mix de lechugas, mango, aguacate y vinagreta de limón", "description_en": "Mixed greens, mango, avocado and lime vinaigrette",
-         "price": 155, "sort_order": 4, "tags": ["vegetarian"], "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400"},
-        
-        # Dinner
-        {"category": "dinner", "name_es": "Rib Eye al Carbón", "name_en": "Charcoal Rib Eye",
-         "description_es": "Corte premium de 400g con guarnición", "description_en": "Premium 400g cut with sides",
-         "price": 485, "is_featured": True, "sort_order": 1, "tags": ["specialty"], "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400"},
-        {"category": "dinner", "name_es": "Pulpo a las Brasas", "name_en": "Grilled Octopus",
-         "description_es": "Pulpo perfectamente asado con papas y chimichurri", "description_en": "Perfectly grilled octopus with potatoes and chimichurri",
-         "price": 395, "is_featured": True, "sort_order": 2, "tags": ["specialty"], "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400"},
-        {"category": "dinner", "name_es": "Salmón Glaseado", "name_en": "Glazed Salmon",
-         "description_es": "Salmón con glaseado de miel y soya, vegetales al vapor", "description_en": "Salmon with honey soy glaze, steamed vegetables",
-         "price": 345, "sort_order": 3, "tags": [], "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400"},
-        {"category": "dinner", "name_es": "Pasta Mariscos", "name_en": "Seafood Pasta",
-         "description_es": "Linguini con camarones, pulpo y mejillones en salsa blanca", "description_en": "Linguini with shrimp, octopus and mussels in white sauce",
-         "price": 295, "sort_order": 4, "tags": ["popular"], "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400"},
-    ]
+        for item_data in sample_items:
+            item = MenuItem(**item_data)
+            await db.menu_items.insert_one(item.model_dump())
     
-    for item_data in sample_items:
-        item = MenuItem(**item_data)
-        await db.menu_items.insert_one(item.model_dump())
-    
-    return {"message": "Database seeded successfully", "admin_username": "admin"}
+    return {"message": "Database seeded successfully", "admin_username": "admin", "admin_password": "Damian.01"}
 
 # ================== HEALTH CHECK ==================
 
