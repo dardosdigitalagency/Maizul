@@ -24,18 +24,21 @@ db_name = os.environ.get('DB_NAME', 'maizul')
 client = None
 db = None
 
-def get_db():
+async def init_db():
     global client, db
     if client is None:
         if not mongo_url:
-            raise HTTPException(status_code=500, detail="MONGO_URL not configured")
+            raise Exception("MONGO_URL not configured")
         client = AsyncIOMotorClient(
             mongo_url,
-            serverSelectionTimeoutMS=5000,
+            serverSelectionTimeoutMS=10000,
             connectTimeoutMS=10000,
             socketTimeoutMS=10000
         )
         db = client[db_name]
+        # Test connection
+        await client.admin.command('ping')
+        logging.info("MongoDB connected successfully")
     return db
 
 # JWT Config
