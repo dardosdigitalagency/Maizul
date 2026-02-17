@@ -377,9 +377,26 @@ async def seed_database():
 
 # ================== HEALTH CHECK ==================
 
+@app.get("/")
+async def root():
+    return {"status": "ok", "app": "Maizul Restaurant API", "version": "1.0"}
+
 @api_router.get("/health")
 async def health_check():
-    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+    db_status = "connected"
+    try:
+        if client:
+            await client.admin.command('ping')
+        else:
+            db_status = "not_initialized"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+    
+    return {
+        "status": "healthy", 
+        "database": db_status,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
 
 # Include the router in the main app
 app.include_router(api_router)
