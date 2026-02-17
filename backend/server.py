@@ -401,11 +401,16 @@ logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 async def startup_event():
-    # Auto-seed on startup
-    existing_admin = await db.users.find_one({"role": "admin"})
-    if not existing_admin:
-        logger.info("No admin found, seeding database...")
-        await seed_database()
+    try:
+        await init_db()
+        # Auto-seed on startup
+        existing_admin = await db.users.find_one({"role": "admin"})
+        if not existing_admin:
+            logger.info("No admin found, seeding database...")
+            await seed_database()
+    except Exception as e:
+        logger.error(f"Database connection failed: {e}")
+        logger.warning("Server starting without database - /api/seed will initialize when DB is available")
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
