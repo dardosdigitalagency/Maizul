@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://maizul-resto.preview.emergentagent.com/sitemap.xml
+Sitemap: https://restaurant-test.preview.emergentagent.com/sitemap.xml
 
 # Disallow admin pages
 Disallow: /admin

@@ -2,30 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://maizul-resto.preview.emergentagent.com/es</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://maizul-resto.preview.emergentagent.com/es"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://maizul-resto.preview.emergentagent.com/en"/>
+    <loc>https://restaurant-test.preview.emergentagent.com/es</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://restaurant-test.preview.emergentagent.com/es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://restaurant-test.preview.emergentagent.com/en"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://maizul-resto.preview.emergentagent.com/en</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://maizul-resto.preview.emergentagent.com/es"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://maizul-resto.preview.emergentagent.com/en"/>
+    <loc>https://restaurant-test.preview.emergentagent.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://restaurant-test.preview.emergentagent.com/es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://restaurant-test.preview.emergentagent.com/en"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://maizul-resto.preview.emergentagent.com/es/menu</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://maizul-resto.preview.emergentagent.com/es/menu"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://maizul-resto.preview.emergentagent.com/en/menu"/>
+    <loc>https://restaurant-test.preview.emergentagent.com/es/menu</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://restaurant-test.preview.emergentagent.com/es/menu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://restaurant-test.preview.emergentagent.com/en/menu"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://maizul-resto.preview.emergentagent.com/en/menu</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://maizul-resto.preview.emergentagent.com/es/menu"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://maizul-resto.preview.emergentagent.com/en/menu"/>
+    <loc>https://restaurant-test.preview.emergentagent.com/en/menu</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://restaurant-test.preview.emergentagent.com/es/menu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://restaurant-test.preview.emergentagent.com/en/menu"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
